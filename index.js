@@ -53,6 +53,8 @@ const paginate = async (currentPage, PAGE_SIZE, pokemons) => {
         </div>  
         `)
     })
+
+    $('#numDisplayed').html(`<br><h3>Displaying ${selected_pokemons.length} of ${pokemons.length} Pokemon</h3><br>`)
 }
 
 const setup = async () => {
@@ -122,14 +124,18 @@ const setup = async () => {
 
         //update pagination buttons
         updatePaginationDiv(currentPage, numPages)
+        console.log("currentPage: ", currentPage);
     })
 
-    $('body').on('click', ".types", async function (e) {
-        if (this.checked) {
-            selectedTypes.push(this.name);
-          } else {
-            selectedTypes = selectedTypes.filter(type => type !== this.name);
-          }
+    // add event listener to type checkboxes
+    $('body').on('click', ".form-check-input", async function (e) {
+        const type = e.target.name
+        if (e.target.checked) {
+            selectedTypes.push(type)
+        } else {
+            selectedTypes = selectedTypes.filter((t) => t !== type)
+        }
+        console.log("selectedTypes: ", selectedTypes);
     })
 
 }
